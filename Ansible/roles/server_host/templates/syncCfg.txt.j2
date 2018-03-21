@@ -1,0 +1,12 @@
+DATA_SYNC_INFO SP:{{organization_prefix}}/authority/{{authority_name}}/sync/{{data_name}} DP:{{organization_prefix}}/authority/{{authority_name}}/data/{{data_name}} DIR:RussianImageEncrypted SIGN:{{organization_prefix}}/authority/{{authority_name}}/device/{{device_name}} SYNC_SIGN:{{organization_prefix}}/authority/{{authority_name}}/device/{{device_name}} PUBLISH_FREQ:0 PRODUCER: 
+PRODUCER
+ID {{device_name}}
+SYNC_PERCENT 100
+COLLECT_WIN 20
+CHUNK 4096
+RESEND
+INTEREST_LIFETIME 1500
+CERTIFICATE_DIRECTORY {{ ansible_env.HOME }}/.ndn/certs
+SIGN
+VALIDATE {{ ansible_env.HOME }}/.ndn/validator_wuqpr1.cfg
+VERSION 2

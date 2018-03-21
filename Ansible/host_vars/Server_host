@@ -1,0 +1,13 @@
+---
+default_prefix: /darpa/Server
+device_name: Server
+host_IP_Address: 192.168.107.2
+host_URI: udp4://h107x2
+default_IP_route: 192.168.107.1
+server_host: h107x2
+ansible_host: vm12c02v02
+ansible_user: jdd
+ansible_ssh_pass: cowab
+ansible_sudo_pass: cowab
+sync_neighbors: [PDN_host]
+data_neighbors: [PDN_host]

@@ -1,0 +1,19 @@
+---
+# tasks file for ndnping
+#- name: install ndnping
+#  apt: name=ndnping state=latest update_cache=yes
+
+- name: create /tmp/syncbusStart.sh
+  template: src=syncbusStart.sh.j2 dest=/tmp/syncbusStart.sh  mode="u=rwx,g=rx,o=rx"
+  become: yes
+
+- name: create /tmp/syncbusCertCheck.sh
+  template: src=syncbusCertCheck.sh.j2 dest=/tmp/syncbusCertCheck.sh  mode="u=rwx,g=rx,o=rx"
+  become: yes
+
+
+- name: run /tmp/syncbusCertCheck.sh
+  command: /tmp/syncbusCertCheck.sh
+
+#- name: run /tmp/syncbusStart.sh
+#  command: /tmp/syncbusStart.sh

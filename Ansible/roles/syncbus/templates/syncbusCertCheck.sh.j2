@@ -1,0 +1,8 @@
+#!/bin/bash
+
+killall syncbus >& /dev/null
+
+cd /home/{{ansible_user}}/Sync
+
+./syncbus -c 0 -f syncCfg.txt 
+

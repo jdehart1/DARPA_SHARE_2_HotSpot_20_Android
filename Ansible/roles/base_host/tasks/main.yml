@@ -1,0 +1,43 @@
+---
+# tasks file for base_host
+
+
+# add default route
+- script: roles/base_host/files/defaultRoute.sh {{default_IP_route}}
+  ignore_errors: yes
+  become: yes
+
+# update /etc/hosts
+
+- name:  add local hostname
+  lineinfile: dest=/etc/hosts line='127.0.0.1 {{ansible_host}}'
+  become: yes
+
+- set_fact:
+    hosts_content: "{{ lookup('file', 'files/ansible_hosts_file') }}"
+
+- blockinfile:
+    dest: /etc/hosts
+    content: '{{ hosts_content }}'
+    state: present
+  become: yes
+
+- name: create ~/Sync directory
+  file: path=~/Sync state=directory 
+
+- name: create ~/Sync/files directory
+  file: path=~/Sync/files state=directory 
+
+- name: create ~/Sync/RussianImage directory
+  file: path=~/Sync/RussianImage state=directory 
+
+- name: create ~/Sync/RussianImageEncrypted directory
+  file: path=~/Sync/RussianImageEncrypted state=directory 
+
+# add ssh authorized_keys for password-less login
+# we will use this from onlusr to get to the user hosts
+- copy:
+    src: roles/base_host/files/authorized_keys.jdd
+    dest: ~/.ssh/authorized_keys
+    mode: 0600
+  when: ansible_user == "jdd"

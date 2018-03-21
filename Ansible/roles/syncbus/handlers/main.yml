@@ -1,0 +1,5 @@
+---
+# handlers file for syncbus
+- name: start syncbus
+  service: name=syncbus state=started
+  become: yes

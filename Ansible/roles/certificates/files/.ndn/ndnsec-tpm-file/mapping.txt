@@ -1,0 +1,4 @@
+/darpa/auth/ksk-1521658772038 ./roles/certificates/files/.ndn/ndnsec-tpm-file/E9LALEpHlS8Ga62UWTauU9UBiyJ%edjnmCRJ0kWGx8s=
+/darpa/auth/ksk-1521658968729 ./roles/certificates/files/.ndn/ndnsec-tpm-file/M+BLT4AHjFNHklSirvzlunvh78gU+rS1899nzUPPeVI=
+/darpa/auth/ksk-1521659018628 ./roles/certificates/files/.ndn/ndnsec-tpm-file/CIdPGdcTn4CbYdo1qYJkieYyBLaKZmuLT3hCkuDwZ60=
+/darpa/auth/ksk-1521659450064 ./roles/certificates/files/.ndn/ndnsec-tpm-file/4Gm0qLnlNfldWQ203rc4tY6EdAXkZFzaQEAgy84ilu0=

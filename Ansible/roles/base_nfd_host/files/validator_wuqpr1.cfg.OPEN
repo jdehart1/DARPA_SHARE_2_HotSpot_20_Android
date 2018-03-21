@@ -1,0 +1,4 @@
+trust-anchor
+{
+   type any
+}

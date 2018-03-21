@@ -1,0 +1,13 @@
+---
+default_prefix: /darpa/Android_1_1
+device_name: Android_1_1
+host_IP_Address: 192.168.1.2
+host_URI: udp4://h1x2
+default_IP_route: 192.168.1.1
+server_host: h107x2
+ansible_host: pc2core26
+ansible_user: jdd
+ansible_ssh_pass: cowab
+ansible_sudo_pass: cowab
+sync_neighbors: [Android_1_2,Android_1_3,Android_1_4,Android_1_5,Android_1_6,Android_1_7,Android_1_8,Android_1_9,Android_1_10,NFD1_host]
+data_neighbors: [Android_1_2,Android_1_3,Android_1_4,Android_1_5,Android_1_6,Android_1_7,Android_1_8,Android_1_9,Android_1_10,NFD1_host]

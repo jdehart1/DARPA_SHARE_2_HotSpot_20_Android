@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SYNC_PREFIX={{organization_prefix}}/authority/{{authority_name}}/sync
+DATA_PREFIX={{organization_prefix}}/authority/{{authority_name}}/data
+
+{% for host in sync_neighbors %}
+nfdc face create {{ hostvars[host].host_URI }}
+nfdc route add $SYNC_PREFIX {{ hostvars[host].host_URI }}
+{% endfor %}
+
+{% for host in data_neighbors %}
+nfdc face create {{ hostvars[host].host_URI }}
+nfdc route add $DATA_PREFIX {{ hostvars[host].host_URI }}
+{% endfor %}
+
+nfdc strategy set $SYNC_PREFIX /localhost/nfd/strategy/multicast
+nfdc strategy set $DATA_PREFIX /localhost/nfd/strategy/multicast
+  

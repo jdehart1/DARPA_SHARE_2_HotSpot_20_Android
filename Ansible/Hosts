@@ -1,0 +1,34 @@
+PDN_HOSTS="PDN_host"
+SERVER_HOSTS="Server_host"
+ANDROID_HOSTS1="Android_1_1 Android_1_2 Android_1_3 Android_1_4 Android_1_5 Android_1_6 Android_1_7 Android_1_8 Android_1_9 Android_1_10 "
+ANDROID_HOSTS2="Android_2_1 Android_2_2 Android_2_3 Android_2_4 Android_2_5 Android_2_6 Android_2_7 Android_2_8 Android_2_9 Android_2_10"
+NFD_HOSTS1="NFD1_host"
+NFD_HOSTS2="NFD2_host"
+
+# The assignments below depend on the ONL topology that is created.
+PDN_host=h24x2
+Server_host=h107x2
+Android_1_1=h1x2
+Android_1_2=h2x2
+Android_1_3=h3x2
+Android_1_4=h4x2
+Android_1_5=h5x2
+Android_1_6=h6x2
+Android_1_7=h7x2
+Android_1_8=h8x2
+Android_1_9=h9x2
+Android_1_10=h10x2
+NFD1_host=h26x2
+
+Android_2_1=h11x2
+Android_2_2=h12x2
+Android_2_3=h14x2
+Android_2_4=h15x2
+Android_2_5=h16x2
+Android_2_6=h17x2
+Android_2_7=h18x2
+Android_2_8=h19x2
+Android_2_9=h20x2
+Android_2_10=h21x2
+NFD2_host=h25x2
+

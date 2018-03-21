@@ -1,0 +1,38 @@
+---
+
+# NDN
+- name: configure server hosts
+  hosts: ndn_server_hosts
+  roles:
+  - {role: 'user', tags: 'user'}
+  - {role: 'base_host', tags: 'base_host'}  # to use the tag, use this option: --tags "base_host"
+  - {role: 'base_nfd_host', tags: 'base_nfd_host'}  # to use the tag, use this option: --tags "base_nfd_host"
+  - {role: 'server_host', tags: 'server_host'}  # to use the tag, use this option: --tags "server_host"
+
+- name: configure pdn hosts
+  hosts: ndn_pdn_hosts
+  roles:
+  - {role: 'user', tags: 'user'}
+  - {role: 'base_host', tags: 'base_host'}  # to use the tag, use this option: --tags "base_host"
+  - {role: 'base_nfd_host', tags: 'base_nfd_host'}  # to use the tag, use this option: --tags "base_nfd_host"
+  - {role: 'pdn_host', tags: 'pdn_host'}  # to use the tag, use this option: --tags "pdn_host"
+
+- name: configure hs nfd hosts
+  hosts: hs_nfd_hosts
+  roles:
+  - {role: 'user', tags: 'user'}
+  - {role: 'base_host', tags: 'base_host'}  # to use the tag, use this option: --tags "base_host"
+  - {role: 'base_nfd_host', tags: 'base_nfd_host'}  # to use the tag, use this option: --tags "base_nfd_host"
+  - {role: 'hs_nfd_host', tags: 'hs_nfd_host'}  # to use the tag, use this option: --tags "hs_nfd_host"
+
+- name: configure syncbus user and pdn hosts
+  hosts: ndn_pdn_hosts
+  roles:
+  - {role: 'syncbus', tags: 'syncbus'}  # to use the tag, use this option: --tags "syncbus"
+
+- name: configure syncbus server host
+  hosts: ndn_server_hosts 
+  roles:
+  - {role: 'syncbus', tags: 'syncbus'}  # to use the tag, use this option: --tags "syncbus"
+
+

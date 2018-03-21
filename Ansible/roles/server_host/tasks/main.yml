@@ -1,0 +1,23 @@
+---
+# tasks file for server_host
+
+- name: generate sync cfg file
+  template: src=syncCfg.txt.j2 dest=~/Sync/syncCfg.txt mode="u=rwx,g=rx,o=rx"
+
+# copy all bob files to Server
+- copy: src={{ item }} dest=~/Sync/files/ mode=644
+  with_fileglob:
+    - roles/server_host/files/BobFiles/*
+
+# copy all RussianImage files to Server
+- copy: src={{ item }} dest=~/Sync/RussianImage/ mode=644
+  with_fileglob:
+    - roles/server_host/files/RussianImage/*
+
+# copy all RussianImage encrypted files to Server
+- copy: src={{ item }} dest=~/Sync/RussianImageEncrypted/ mode=644
+  with_fileglob:
+    - roles/server_host/files/RussianImageEncrypted/*
+
+# copy password file for openssl encryption
+- copy: src=roles/server_host/files/password dest=~/Sync/password mode=400

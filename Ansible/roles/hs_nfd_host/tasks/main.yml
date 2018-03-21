@@ -1,0 +1,5 @@
+---
+# tasks file for hs_nfd_host
+
+- name: generate sync cfg file
+  template: src=syncCfg.txt.j2 dest=~/Sync/syncCfg.txt mode="u=rwx,g=rx,o=rx"

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SYNC_PREFIX={{organization_prefix}}/authority/{{authority_name}}/sync/tacdata
+DATA_PREFIX={{organization_prefix}}/authority/{{authority_name}}/data
+
+{% for host in sync_neighbors %}
+nfdc create {{ hostvars[host].host_URI }}
+nfdc add-nexthop  $SYNC_PREFIX {{ hostvars[host].host_URI }}
+{% endfor %}
+
+{% for host in data_neighbors %}
+nfdc create {{ hostvars[host].host_URI }}
+nfdc add-nexthop $DATA_PREFIX {{ hostvars[host].host_URI }}
+{% endfor %}
+
+nfdc set-strategy $SYNC_PREFIX /localhost/nfd/strategy/multicast
+nfdc set-strategy $DATA_PREFIX /localhost/nfd/strategy/multicast
+  

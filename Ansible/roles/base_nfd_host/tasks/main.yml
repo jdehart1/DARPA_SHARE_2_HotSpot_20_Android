@@ -1,0 +1,45 @@
+---
+# tasks file for base_nfd_host
+
+
+- name: copy nfdStart.sh
+  copy: src=roles/base_nfd_host/files/nfdStart.sh dest=/tmp/nfdStart.sh mode="u=rwx,g=rx,o=rx"
+
+- name: run /tmp/nfdStart.sh script
+  command: /tmp/nfdStart.sh
+
+- name: create .ndn/certs
+  file: path=~/.ndn/certs state=directory 
+
+- name: create .ndn/unsigned_certs
+  file: path=~/.ndn/unsigned_certs state=directory 
+
+- name: create key pair for this host
+  shell: ndnsec-key-gen -t r -d {{organization_prefix}}/authority/{{authority_name}}/device/{{device_name}} > ~/.ndn/unsigned_certs/{{device_name}}_{{authority_name}}_unsigned.cert
+  args:
+    executable: /bin/bash
+
+- name: copy unsigned cert back to local host to be signed by authority
+  fetch: dest=roles/certificates/files/certs/{{device_name}}_{{authority_name}}_unsigned.cert src=~/.ndn/unsigned_certs/{{device_name}}_{{authority_name}}_unsigned.cert flat=yes
+
+
+- name: sign unsigned cert 
+  local_action: shell ndnsec-cert-gen -N {{device_name}} -s {{organization_prefix}}/authority/{{authority_name}} -p {{organization_prefix}}/authority/{{authority_name}}/device/{{device_name}} -r roles/certificates/files/certs/{{device_name}}_{{authority_name}}_unsigned.cert > roles/certificates/files/certs/{{device_name}}_{{authority_name}}_signed.cert
+  args:
+    executable: /bin/bash
+
+- name: copy validator_wuqpr1.cfg to all hosts
+  copy: src=roles/base_nfd_host/files/validator_wuqpr1.cfg dest=~/.ndn/validator_wuqpr1.cfg mode="u=rw,g=r,o=r"
+
+- name: copy sync (app and sync*) executable to all hosts
+  copy: src=roles/base_nfd_host/files/syncbus dest=~/Sync/syncbus mode="u=rwx,g=rx,o=rx"
+
+- name: copy sync debug script
+  copy: src=roles/base_nfd_host/files/test_parse_fileseq.py dest=~/Sync/test_parse_fileseq.py mode="u=rwx,g=rx,o=rx"
+
+- name: generate nfdc script for building faces and Fib entries
+  template: src=nfdcScript.sh.j2 dest=~/Sync/nfdcScript.sh mode="u=rwx,g=rx,o=rx"
+
+- name: run nfdcScript.sh script
+  command: ~/Sync/nfdcScript.sh
+

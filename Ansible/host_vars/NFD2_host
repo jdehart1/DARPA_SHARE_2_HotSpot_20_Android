@@ -1,0 +1,11 @@
+---
+default_prefix: /darpa/NFD2
+device_name: NFD2
+host_IP_Address: 192.168.25.2
+host_URI: udp4://h25x2
+default_IP_route: 192.168.25.1
+server_host: h107x2
+ansible_host: vm12c01v07
+ansible_user: jdd
+ansible_ssh_pass: cowab
+ansible_sudo_pass: cowab

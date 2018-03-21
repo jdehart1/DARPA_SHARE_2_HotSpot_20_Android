@@ -1,0 +1,30 @@
+
+Ansible for DARPA 2-Hotspot 20-Android Demo on ONL.
+
+git repo and ONL topology file have changed and will continue to change 
+as we finalize the demo...
+https://github.com/WU-ARL/
+
+RLI topology file: 
+
+copy RLI topology file to your laptop
+
+On your laptop, run the RLI and File/Open the topology file.
+Make a reservation.
+Commit
+
+Once the Commit is successfully completed, you can configure and run the ansible playbook.
+You will need the VM password from the RLI. It can be found with the Topology/Show VM Password
+menu item.
+
+To run, cd into this directory ./Ansible 
+The Hosts file needs to have the ONL topology names defined in it.
+
+then run:
+
+For use with VM topology, do this for both nfd and vpn demos:
+> ./mkAnsibleAndroid.sh <vm password> <# of hotspots>
+> ./mkAnsibleAndroid.sh xyzab 2
+
+For the Android NDN demo:
+> ansible-playbook -i DemoInventory android_demo.yml
