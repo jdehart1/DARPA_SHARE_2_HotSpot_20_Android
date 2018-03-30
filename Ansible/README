@@ -1,0 +1,5 @@
+
+After the topology is committed, find the VM password.
+
+./mkAnsibleAndroid.sh <vm password from RLI Topology/Show VM Password>   2
+ansible-playbook  -i DemoInventory android_demo.yml
