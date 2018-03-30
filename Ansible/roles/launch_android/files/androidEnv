@@ -1,0 +1,4 @@
+export ANDROID_SDK_ROOT=/scratch/share
+export ANDROID_EMULATOR_HOME=/scratch/jdd/.android
+export ANDROID_AVD_HOME=/scratch/jdd/.android/avd
+export ADB=${ANDROID_SDK_ROOT}/Android/Sdk/platform-tools/adb

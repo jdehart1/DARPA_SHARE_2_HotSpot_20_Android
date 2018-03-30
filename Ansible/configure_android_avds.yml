@@ -1,0 +1,6 @@
+---
+
+- name: configure android AVDs
+  hosts: android_hosts
+  roles:
+  - {role: 'configure_android_nfd', tags: 'configure_android_nfd'}  # to use the tag, use this option: --tags "configure_android_nfd"

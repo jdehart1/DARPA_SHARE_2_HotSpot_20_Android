@@ -5,7 +5,9 @@ host_IP_Address: 192.168.26.2
 host_URI: udp4://h26x2
 default_IP_route: 192.168.26.1
 server_host: h107x2
-ansible_host: vm12c01v08
+ansible_host: vm12c01v04
 ansible_user: jdd
-ansible_ssh_pass: cowab
-ansible_sudo_pass: cowab
+ansible_ssh_pass: bwfga
+ansible_sudo_pass: bwfga
+sync_neighbors: [PDN_host,Android_1_1,Android_1_2,Android_1_3,Android_1_4,Android_1_5,Android_1_6,Android_1_7,Android_1_8,Android_1_9,Android_1_10]
+data_neighbors: [PDN_host,Android_1_1,Android_1_2,Android_1_3,Android_1_4,Android_1_5,Android_1_6,Android_1_7,Android_1_8,Android_1_9,Android_1_10,Android_1_10]

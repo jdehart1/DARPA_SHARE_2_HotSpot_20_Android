@@ -1,0 +1,10 @@
+---
+# tasks file for configure_android_nfd
+
+## Initialize its NFD to use the NFD for this hotspot
+## template for a config script, one per HS
+#- name: generate nfdc script for building faces and Fib entries
+#  template: src=nfdcScript.sh.j2 dest=~/scratch/{{ansible_user}}/nfdcScript.sh mode="u=rwx,g=rx,o=rx"
+#
+#- name: run nfdcScript.sh script
+#  command: /scratch/{{ansible_user}}/nfdcScript.sh

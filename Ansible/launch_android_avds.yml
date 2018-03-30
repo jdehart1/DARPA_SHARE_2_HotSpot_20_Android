@@ -1,0 +1,7 @@
+---
+
+- name: launch android AVDs
+  hosts: android_hosts
+  roles:
+  - {role: 'launch_android', tags: 'launch_android'}  # to use the tag, use this option: --tags "launch_android"
+

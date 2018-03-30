@@ -1,0 +1,30 @@
+---
+## tasks file for user
+#- name: user remove client.conf if it is there
+#  file: path=~/.ndn/client.conf state=absent
+
+- name: add user to sudoers
+  shell: echo "$SUDO_USER"  'ALL=(ALL:ALL)' 'NOPASSWD' ':' ' ALL'  >> /etc/sudoers
+  become: yes
+  args:
+    executable: /bin/bash
+
+- name: chown user home dir
+  shell: chown -R {{ansible_user}}.sudo /home/{{ansible_user}}
+  become: yes
+
+#- name: copy ndnping script to user account
+#  copy: dest=/tmp/pingAll.sh  src=roles/user/files/pingAll.sh mode=0755
+
+#- name: test shell module
+#  shell: cat < /etc/sudoers > /tmp/sudoers
+#  become: yes
+#  args:
+#    executable: /bin/bash
+#
+#- name: add user to sudoers
+#  shell: echo "$SUDO_USER"  'ALL=(ALL:ALL)' 'NOPASSWD' ':' ' ALL'  >> /tmp/sudoers
+#  become: yes
+#  args:
+#    executable: /bin/bash
+

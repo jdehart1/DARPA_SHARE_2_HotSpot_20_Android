@@ -43,6 +43,7 @@ echo $HOSTS
 
 echo "# Hosts list:" > ./DemoInventory
 ANSIBLE_HOSTS_FILE=./roles/base_host/files/ansible_hosts_file
+ANSIBLE_HOSTS_FILE2=./roles/android_base_host/files/ansible_hosts_file
 echo "#ANSIBLE Maintained part of hosts file" > $ANSIBLE_HOSTS_FILE
 for h in $HOSTS
 do
@@ -53,6 +54,7 @@ do
   HH=${!h}
   # hostnames like h1x2 are known to yp, get the address associated with it
   IPADDR=`ypcat hosts | grep "${HH}\$" | cut -d ' ' -f 1`
+  #echo "h: $h HH: $HH"
   URI="udp4://${HH}"
   # all hosts/entities in ONL topology are of the form h#x2 with default route of h#x1
   IPROUTE1=`echo $IPADDR | cut -d '.' -f1,2,3`
@@ -76,20 +78,21 @@ do
   echo "$IPROUTE $IPROUTE_HOST" >> $ANSIBLE_HOSTS_FILE
   echo "$IPADDR ${HH}" >> $ANSIBLE_HOSTS_FILE
 done
+cp $ANSIBLE_HOSTS_FILE $ANSIBLE_HOSTS_FILE2
 
 for i in `seq 1 $numHotspots`;
 do
   AH=ANDROID_HOSTS${i}
   AAH=$AH
   NH=NFD_HOSTS${i}
-  NNH=$NH
-  #echo "AH=$AH"
-  #echo "AAH=$AAH"
-  #echo "${!AAH}"
+  NNH=${!NH}
+  NNNH=${!NNH}
+  NFD_HOST_IP_ADDR=`ypcat hosts | grep "${NNNH}\$" | cut -d ' ' -f 1`
 
-  # add to the host_vars files for sync and data neighbors
+  # add to the host_vars files for nfd_host, sync and data neighbors
   for ah in ${!AAH}
   do
+    echo "nfd_host: $NFD_HOST_IP_ADDR" >> ./host_vars/$ah
     # User hosts have faces to all other User hosts on same HS and to PDN
     # these faces will be used for both sync and data
     SYNC_NEIGHBORS=""
@@ -110,7 +113,7 @@ do
         fi
       fi
     done
-    for neighbor in ${!NNH}
+    for neighbor in ${!NH}
     do
         if [ $first -ne 1 ]
         then
@@ -125,9 +128,42 @@ do
     echo "sync_neighbors: [${SYNC_NEIGHBORS}]" >> ./host_vars/$ah
     echo "data_neighbors: [${DATA_NEIGHBORS}]" >> ./host_vars/$ah
   done
+  
+  for nh in ${!NH}
+  do
+    # NFD hosts have faces to all User hosts and to PDN
+    SYNC_NEIGHBORS=""
+    DATA_NEIGHBORS=""
+    first=1
+    for neighbor in $PDN_HOSTS
+    do
+        if [ $first -ne 1 ]
+        then
+          SYNC_NEIGHBORS="$SYNC_NEIGHBORS,$neighbor"
+          DATA_NEIGHBORS="$DATA_NEIGHBORS,$neighbor"
+        else
+          first=0
+          SYNC_NEIGHBORS="$neighbor"
+          DATA_NEIGHBORS="$neighbor"
+        fi
+    done
+    for neighbor in ${!AAH}
+    do
+      if [  $first -ne 1 ]
+      then
+        SYNC_NEIGHBORS="$SYNC_NEIGHBORS,$neighbor"
+        DATA_NEIGHBORS="$SYNC_NEIGHBORS,$neighbor"
+      else
+        first=0
+        SYNC_NEIGHBORS="$neighbor"
+        DATA_NEIGHBORS="$neighbor"
+      fi
+    done
+    echo "sync_neighbors: [${SYNC_NEIGHBORS}]" >> ./host_vars/$nh
+    echo "data_neighbors: [${DATA_NEIGHBORS}]" >> ./host_vars/$nh
+  done
 done
-  
-  
+
 for ph in $PDN_HOSTS
 do
   # PDN hosts have faces to all User hosts and to Server

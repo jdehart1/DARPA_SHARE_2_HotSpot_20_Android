@@ -1,0 +1,15 @@
+---
+# tasks file for android_host
+
+# Make sure it has the Share AVD installed for this user
+# /scratch/share/user_scripts/copyShareAvd.sh -q -n Share_Build_64
+# this will quietly copy the Shave_Build_64 AVD into /scratch/${USER}/.android/avd if it is not already there.
+- name: make sure we have a copy of Share_Build_64 (don't overwrite if already present)
+  command: /scratch/share/user_scripts/copyShareAvd.sh -q -n Share_Build_64
+
+
+
+
+# Start App (Whiteboard?)
+
+

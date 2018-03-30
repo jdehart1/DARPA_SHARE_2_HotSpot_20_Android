@@ -1,0 +1,32 @@
+---
+# tasks file for authority
+
+# check if we have an authority cert already
+- name: check for authority cert
+  local_action: stat path=~/.ndn/certs/{{authority_name}}.cert
+  register: authcert
+  become: no
+
+- name: create .ndn/certs
+  local_action: file path=~/.ndn/certs state=directory
+
+- name: create .ndn/unsigned_certs
+  local_action: file path=~/.ndn/unsigned_certs state=directory
+
+- name: create key pair for authority
+  local_action: shell ndnsec-key-gen -t r {{organization_prefix}}/authority/{{authority_name}} > ~/.ndn/unsigned_certs/{{authority_name}}_unsigned.cert
+  args:
+    executable: /bin/bash
+  when: not authcert.stat.exists
+
+- name: dump cert for authority
+  local_action: shell ndnsec-dump-certificate -i {{organization_prefix}}/authority/{{authority_name}} > ~/.ndn/certs/{{authority_name}}.cert
+  args:
+    executable: /bin/bash
+  when: not authcert.stat.exists
+
+#- name: sign unsigned cert
+#  local_action: shell ndnsec-cert-gen -s {{organization_prefix}}/authority/{{authority_name}} -r roles/certificates/files/certs/{{device_name}}_{{authority_name}}_unsigned.cert > roles/certificates/files/certs/{{device_name}}_{{authority_name}}_signed.cert
+#  args:
+#    executable: /bin/bash
+

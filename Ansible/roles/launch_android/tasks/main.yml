@@ -1,0 +1,17 @@
+---
+# tasks file for launch_android
+
+# Launch Share AVD
+# /scratch/share/user_scripts/launch_share.sh Share_Build_64
+# This will launch the AVD in an android emulator
+#- name: launch Share_Build_64 AVD
+#  command: /scratch/share/user_scripts/launch_share.sh Share_Build_64
+#
+#- local_action: command: ssh -Y {{host_IP_Address}} "/scratch/share/user_scripts/launch_share.sh Share_Build_64"
+#
+## How do we know that the emulator is ready?
+
+- name: launch all android emulations
+  local_action: shell roles/launch_android/files/launchAll.sh roles/launch_android/files
+  run_once: true
+  become: false

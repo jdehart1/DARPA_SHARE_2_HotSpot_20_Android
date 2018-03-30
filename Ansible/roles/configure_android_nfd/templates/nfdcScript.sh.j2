@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+if [ $# -ne 1 ]
+then
+  echo "Usage: $0 <hostname or IP address of gw to connect to>"
+  echo "Example: $0 192.168.26.2"
+  exit 0
+fi
+GW=$1
+
+ANDROID_SDK_ROOT=/scratch/share/
+ADB=${ANDROID_SDK_ROOT}/Android/Sdk/platform-tools/adb
+
+${ADB} root
+${ADB} shell "ndnsec key-gen /localhost/operator | ndnsec cert-install -"
+${ADB} shell "nfdc face create udp://${GW}"
+${ADB} shell "nfdc route add / udp://${GW}"
+${ADB} shell "ndnping -c 3 /ndn/nfd1"
+
+SYNC_PREFIX={{organization_prefix}}/authority/{{authority_name}}/sync/tacdata
+DATA_PREFIX={{organization_prefix}}/authority/{{authority_name}}/data
+
+{% for host in sync_neighbors %}
+${ADB} shell "nfdc face create {{ hostvars[host].host_URI }}"
+${ADB} shell "nfdc route add  $SYNC_PREFIX {{ hostvars[host].host_URI }}"
+{% endfor %}
+
+{% for host in data_neighbors %}
+${ADB} shell "nfdc face create {{ hostvars[host].host_URI }}"
+${ADB} shell "nfdc route add $DATA_PREFIX {{ hostvars[host].host_URI }}"
+{% endfor %}
+
+${ADB} shell "nfdc strategy set $SYNC_PREFIX /localhost/nfd/strategy/multicast"
+${ADB} shell "nfdc strategy set $DATA_PREFIX /localhost/nfd/strategy/multicast"
+  

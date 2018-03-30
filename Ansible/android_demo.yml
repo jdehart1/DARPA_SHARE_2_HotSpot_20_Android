@@ -2,15 +2,21 @@
 
 # NDN
 - name: configure server hosts
-  hosts: ndn_server_hosts
+  hosts: server_hosts
   roles:
+  - {role: 'authority', tags: 'authority'}
   - {role: 'user', tags: 'user'}
   - {role: 'base_host', tags: 'base_host'}  # to use the tag, use this option: --tags "base_host"
   - {role: 'base_nfd_host', tags: 'base_nfd_host'}  # to use the tag, use this option: --tags "base_nfd_host"
   - {role: 'server_host', tags: 'server_host'}  # to use the tag, use this option: --tags "server_host"
 
+- name: configure android parent hosts
+  hosts: android_hosts
+  roles:
+  - {role: 'android_base_host', tags: 'android_base_host'}  # to use the tag, use this option: --tags "android_base_host"
+
 - name: configure pdn hosts
-  hosts: ndn_pdn_hosts
+  hosts: pdn_hosts
   roles:
   - {role: 'user', tags: 'user'}
   - {role: 'base_host', tags: 'base_host'}  # to use the tag, use this option: --tags "base_host"
@@ -25,14 +31,18 @@
   - {role: 'base_nfd_host', tags: 'base_nfd_host'}  # to use the tag, use this option: --tags "base_nfd_host"
   - {role: 'hs_nfd_host', tags: 'hs_nfd_host'}  # to use the tag, use this option: --tags "hs_nfd_host"
 
-- name: configure syncbus user and pdn hosts
-  hosts: ndn_pdn_hosts
+- name: configure syncbus nfd and pdn hosts
+  hosts: hs_nfd_hosts pdn_hosts
   roles:
   - {role: 'syncbus', tags: 'syncbus'}  # to use the tag, use this option: --tags "syncbus"
 
 - name: configure syncbus server host
-  hosts: ndn_server_hosts 
+  hosts: server_hosts 
   roles:
   - {role: 'syncbus', tags: 'syncbus'}  # to use the tag, use this option: --tags "syncbus"
 
+- name: launch Android emulations
+  hosts: android_hosts
+  roles:
+  - {role: 'launch_android', tags: 'launch_android'}  # to use the tag, use this option: --tags "launch_android"
 

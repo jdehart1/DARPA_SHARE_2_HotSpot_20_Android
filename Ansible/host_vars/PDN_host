@@ -5,9 +5,9 @@ host_IP_Address: 192.168.24.2
 host_URI: udp4://h24x2
 default_IP_route: 192.168.24.1
 server_host: h107x2
-ansible_host: vm12c02v01
+ansible_host: vm12c01v02
 ansible_user: jdd
-ansible_ssh_pass: cowab
-ansible_sudo_pass: cowab
+ansible_ssh_pass: bwfga
+ansible_sudo_pass: bwfga
 sync_neighbors: [Server_host,NFD1_host,NFD2_host]
 data_neighbors: [Server_host,NFD1_host,NFD2_host]
