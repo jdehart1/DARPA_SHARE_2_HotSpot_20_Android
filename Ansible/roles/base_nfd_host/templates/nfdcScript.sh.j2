@@ -4,12 +4,12 @@ SYNC_PREFIX={{organization_prefix}}/authority/{{authority_name}}/sync/tacdata
 DATA_PREFIX={{organization_prefix}}/authority/{{authority_name}}/data
 
 {% for host in sync_neighbors %}
-nfdc face create {{ hostvars[host].host_URI }}
+nfdc face create {{ hostvars[host].host_URI }} persistency permanent
 nfdc route add  $SYNC_PREFIX {{ hostvars[host].host_URI }}
 {% endfor %}
 
 {% for host in data_neighbors %}
-nfdc face create {{ hostvars[host].host_URI }}
+nfdc face create {{ hostvars[host].host_URI }} persistency permanent
 nfdc route add $DATA_PREFIX {{ hostvars[host].host_URI }}
 nfdc route add /ndn/broadcast {{ hostvars[host].host_URI }}
 {% endfor %}

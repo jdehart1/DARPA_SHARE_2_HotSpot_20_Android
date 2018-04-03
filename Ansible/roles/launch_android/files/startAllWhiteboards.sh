@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ $# -ne 1 ]
+then
+  echo "Usage: $0 <directory where start_whiteboard.sh exists"
+  echo "Example: $0 roles/launchAndroid/files"
+  exit 0
+else
+  cd $1
+fi
 
 source ~/.topology
 source ../../../Hosts

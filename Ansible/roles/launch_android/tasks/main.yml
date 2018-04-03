@@ -15,3 +15,24 @@
   local_action: shell roles/launch_android/files/launchAll.sh roles/launch_android/files
   run_once: true
   become: false
+
+- name: launch all whiteboard apps
+  local_action: shell roles/launch_android/files/startAllWhiteboards.sh roles/launch_android/files
+  run_once: true
+  become: false
+
+#- name: set up port forwarding for emulators
+#  script: roles/launch_android/files/emulatorPortForward.sh /users/{{ansible_user}}/.emulator_console_auth_token
+#  become: false
+
+- name: copy port forwarding script
+  copy: src=roles/launch_android/files/emulatorPortForward.sh dest=/tmp/emulatorPortForward.sh mode="u=rwx,g=rx"
+  become: false
+
+- name: set up port forwarding for emulators
+  command: /tmp/emulatorPortForward.sh /users/{{ansible_user}}/.emulator_console_auth_token
+  become: false
+
+- name: set up iptables
+  command: /scratch/share/user_scripts/configureIpTables.sh
+  become: false
