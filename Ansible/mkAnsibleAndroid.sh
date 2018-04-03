@@ -152,7 +152,7 @@ do
       if [  $first -ne 1 ]
       then
         SYNC_NEIGHBORS="$SYNC_NEIGHBORS,$neighbor"
-        DATA_NEIGHBORS="$SYNC_NEIGHBORS,$neighbor"
+        DATA_NEIGHBORS="$DATA_NEIGHBORS,$neighbor"
       else
         first=0
         SYNC_NEIGHBORS="$neighbor"

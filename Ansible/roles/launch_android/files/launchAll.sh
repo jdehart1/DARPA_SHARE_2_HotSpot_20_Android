@@ -22,6 +22,8 @@ do
   echo "Launch AVD on $h: (${!HH})"
   ##ssh -Y $HH "cd $CWD; ./resizeAvd.sh SMALL ; ./launch_share.sh"   
   ssh -Y ${!HH} "cd $CWD; ./launch_share.sh"    &
-  sleep 20
+  #sleep 20
+  #sleep 10
+  sleep 5
   #sleep 2
 done

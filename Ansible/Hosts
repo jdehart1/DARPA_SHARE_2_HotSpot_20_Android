@@ -2,6 +2,8 @@ PDN_HOSTS="PDN_host"
 SERVER_HOSTS="Server_host"
 ANDROID_HOSTS1="Android_1_1 Android_1_2 Android_1_3 Android_1_4 Android_1_5 Android_1_6 Android_1_7 Android_1_8 Android_1_9 Android_1_10 "
 ANDROID_HOSTS2="Android_2_1 Android_2_2 Android_2_3 Android_2_4 Android_2_5 Android_2_6 Android_2_7 Android_2_8 Android_2_9 Android_2_10"
+#ANDROID_HOSTS1="Android_1_1 Android_1_2"
+#ANDROID_HOSTS2="Android_2_1 Android_2_2"
 NFD_HOSTS1="NFD1_host"
 NFD_HOSTS2="NFD2_host"
 
